@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class Player_Pickup : MonoBehaviour
+public class Player_Pickup : MonoBehaviour, Game_Interface_Data
 {
 
     public Transform hold_spot;
@@ -106,5 +106,13 @@ public class Player_Pickup : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void LoadData(Game_Data data) {
+        this.points = data.playerPoints;
+    }
+
+    public void SaveData(ref Game_Data data){
+        data.playerPoints = this.points;
     }
 }

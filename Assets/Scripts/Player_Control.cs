@@ -19,6 +19,8 @@ public class Player_Control : MonoBehaviour
 
     private Player_Pickup pickup;
 
+    private Vector3 pos;
+
 
     void Start() {
         move_point.parent = null;
@@ -31,7 +33,9 @@ public class Player_Control : MonoBehaviour
     }
 
     void Update() {
+        //Debug.Log("1: " + transform.position);
         transform.position = Vector3.MoveTowards(transform.position, move_point.position, move_speed * Time.deltaTime);
+        //Debug.Log("2: " + transform.position);
 
         Collider2D hitbox_horizontal = Physics2D.OverlapCircle(move_point.position + new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f), .2f, collision);
 

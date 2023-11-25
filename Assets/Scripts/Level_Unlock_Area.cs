@@ -26,7 +26,7 @@ public class Level_Unlock_Area : MonoBehaviour
         GameObject level_object = GameObject.Find("LevelingSystem");
         GameObject current_level_object = level_object.transform.GetChild(3).gameObject;
         current_level = current_level_object.GetComponent<Level_Bar_Manager>();
-        current_level.level = 1;
+        //current_level.level = 1;
     }
 
     // Update is called once per frame
