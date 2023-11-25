@@ -11,6 +11,8 @@ public class Game_Data
 
  public int playerPoints;
 
+ public int playerTotalPoints;
+
  public float barFillAmount;
 
  public string playerName;
@@ -32,6 +34,7 @@ public class Game_Data
  {
     this.playerLevel = 1;
     this.playerPoints = 0;
+    this.playerTotalPoints = 0;
     this.barFillAmount = 0.0f;
 
     this.currentItemTags = new List<string>();

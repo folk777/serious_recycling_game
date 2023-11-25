@@ -25,8 +25,6 @@ public class Trash_Spawner : MonoBehaviour, Game_Interface_Data
     public long spawnAmount;
 
 
-    //private bool spawn = true;
-
     // Start is called before the first frame update
     void Start()
     {

@@ -110,9 +110,11 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
 
     public void LoadData(Game_Data data) {
         this.points = data.playerPoints;
+        this.accumulated_points = data.playerTotalPoints;
     }
 
     public void SaveData(ref Game_Data data){
         data.playerPoints = this.points;
+        data.playerTotalPoints = this.accumulated_points;
     }
 }
