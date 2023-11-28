@@ -105,6 +105,7 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                     held_item.transform.parent = transform;
                 }
             }
+
         }
     }
 
