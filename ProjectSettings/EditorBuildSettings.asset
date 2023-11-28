@@ -12,6 +12,11 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: df9ec07a72ddd40578548870256c569f
   - enabled: 1
+<<<<<<< Updated upstream
     path: Assets/Scenes/dialog_1.unity
     guid: 02c33524294824013bcf12a8d20d6de1
+=======
+    path: Assets/Scenes/SettingsButton.unity
+    guid: 53f4782833c4b9948901d21966b10e77
+>>>>>>> Stashed changes
   m_configObjects: {}
