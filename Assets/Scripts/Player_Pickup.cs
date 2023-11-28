@@ -27,11 +27,13 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
     public GameObject glass_bin_holder;
     public GameObject food_bin_holder;
 
+
     // Update is called once per frame
     void Start() {
-        points = 0;
-        accumulated_points = 0;
+        //points = 0;
+        //accumulated_points = 0;
     }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E)){
@@ -80,6 +82,7 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                     held_item.transform.position = transform.position + direction;
                     held_item = null;
                 }
+                
                 // If not dropping into trashcan 
                 else {
                     held_item.transform.parent = null;
