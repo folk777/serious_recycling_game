@@ -8,6 +8,10 @@ TagManager:
   - Paper
   - Glass
   - Food
+  - Wine_paperbag
+  - Food_in_box
+  - Liquid_bottle
+  - Strawberry_jam
   layers:
   - Default
   - TransparentFX
@@ -25,15 +29,15 @@ TagManager:
   - PlasticBin
   - FoodBin
   - GlassBin
-  - 
+  - Sink
   - 
   - 
   - 
   - HoldSpot
-  - 
-  - 
-  - 
-  - 
+  - Wine_paperbagObjects
+  - Food_in_boxObjects
+  - Liquid_bottleObjects
+  - Strawberry_jamObjects
   - 
   - 
   - 

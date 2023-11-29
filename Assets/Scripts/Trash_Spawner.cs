@@ -11,6 +11,10 @@ public class Trash_Spawner : MonoBehaviour, Game_Interface_Data
     public GameObject paper_trash;
     public GameObject food_trash;
     public GameObject glass_trash;
+    public GameObject food_in_box_trash;
+    public GameObject strawberry_jam_trash;
+    public GameObject liquld_bottle_trash;
+    public GameObject Wine_paperbag_trash;
 
     public LayerMask solid_objects;
 
@@ -76,13 +80,13 @@ public class Trash_Spawner : MonoBehaviour, Game_Interface_Data
         if (!unspawnable_solid_blocks && !unspawnable_bin_blocks) {
             // Spawn trash based on number, pos, and rotation
             if (random_num_trash == 0) {
-                GameObject trash = GameObject.Instantiate(plastic_trash);
+                GameObject trash = GameObject.Instantiate(food_in_box_trash); //plastic_trash
                 trash.transform.position = random_position;
                 trash.transform.rotation = random_rotation;
             }
 
             if (random_num_trash == 1) {
-                GameObject trash = GameObject.Instantiate(paper_trash);
+                GameObject trash = GameObject.Instantiate(strawberry_jam_trash); //paper_trash
                 trash.transform.position = random_position;
                 trash.transform.rotation = random_rotation;
             }

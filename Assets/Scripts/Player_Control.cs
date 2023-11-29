@@ -15,6 +15,8 @@ public class Player_Control : MonoBehaviour
 
     public LayerMask trash_collision;
 
+    public LayerMask sink_collision;
+
     public Animator animate;
 
     private Player_Pickup pickup;
@@ -45,6 +47,10 @@ public class Player_Control : MonoBehaviour
 
         Collider2D trashcan_vertical = Physics2D.OverlapCircle(move_point.position + new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f), .2f, trash_collision);
 
+        Collider2D sink_horizontal = Physics2D.OverlapCircle(move_point.position + new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f), .2f, sink_collision);
+
+        Collider2D sink_vertical = Physics2D.OverlapCircle(move_point.position + new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f), .2f, sink_collision);
+
 
         if (Vector3.Distance(transform.position, move_point.position) <= .05f) {
 
@@ -53,7 +59,7 @@ public class Player_Control : MonoBehaviour
             // Check for correct movement input
             if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f) {
                 //Check for collision before moving
-                if (!hitbox_horizontal && !trashcan_horizontal) {
+                if (!hitbox_horizontal && !trashcan_horizontal && !sink_horizontal) {
                     // If the pixels to the left / right of player is collision & not trashcan, don't drop item there
                     if (!Physics2D.OverlapCircle(move_point.position + new Vector3(Input.GetAxisRaw("Horizontal") + 0.5f, 0f, 0f), .2f, collision) && !Physics2D.OverlapCircle(move_point.position + new Vector3(Input.GetAxisRaw("Horizontal") - 0.5f, 0f, 0f), .2f, collision) ) {
                         pickup.direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
@@ -71,7 +77,7 @@ public class Player_Control : MonoBehaviour
                 }
             }
             else if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f) {
-                if (!hitbox_vertical && !trashcan_vertical) {
+                if (!hitbox_vertical && !trashcan_vertical && !sink_vertical) {
                     // If position in front/back of player is collision, don't drop item there
                     if (!Physics2D.OverlapCircle(move_point.position + new Vector3(0f, Input.GetAxisRaw("Vertical") + 0.5f, 0f), .2f, collision) && !Physics2D.OverlapCircle(move_point.position + new Vector3(0f, Input.GetAxisRaw("Vertical") - 0.5f, 0f), .2f, collision)) {
                         pickup.direction = new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);
