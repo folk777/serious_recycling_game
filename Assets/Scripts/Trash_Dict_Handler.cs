@@ -13,6 +13,12 @@ public class Trash_Dict_Handler : MonoBehaviour, Game_Interface_Data
     public GameObject food_trash;
     public GameObject glass_trash;
 
+    public GameObject foodbox_trash;
+    public GameObject strawberryGlass_trash;
+    public GameObject wineBag_trash;
+    public GameObject liquidBottle_trash;
+
+
     public List<string> spawned_item_tags;
 
     public List<Vector3> spawned_item_pos;
@@ -51,6 +57,30 @@ public class Trash_Dict_Handler : MonoBehaviour, Game_Interface_Data
                     trash.transform.rotation = spawned_item_rot[i];
                     //Debug.Log("A GLASS HAS BEEN SPAWNED ");
                 }
+                if (spawned_item_tags[i] == "Food_in_box") {
+                    GameObject trash = GameObject.Instantiate(foodbox_trash);
+                    trash.transform.position = spawned_item_pos[i];
+                    trash.transform.rotation = spawned_item_rot[i];
+
+                }
+                if (spawned_item_tags[i] == "Liquid_bottle") {
+                    GameObject trash = GameObject.Instantiate(liquidBottle_trash);
+                    trash.transform.position = spawned_item_pos[i];
+                    trash.transform.rotation = spawned_item_rot[i];
+
+                }
+                if (spawned_item_tags[i] == "Strawberry_jam") {
+                    GameObject trash = GameObject.Instantiate(strawberryGlass_trash);
+                    trash.transform.position = spawned_item_pos[i];
+                    trash.transform.rotation = spawned_item_rot[i];
+
+                }
+                if (spawned_item_tags[i] == "Wine_paperbag") {
+                    GameObject trash = GameObject.Instantiate(wineBag_trash);
+                    trash.transform.position = spawned_item_pos[i];
+                    trash.transform.rotation = spawned_item_rot[i];
+
+                }
             }
         }
         StartCoroutine(WaitOneFrameScript());
@@ -60,7 +90,7 @@ public class Trash_Dict_Handler : MonoBehaviour, Game_Interface_Data
     void Update()
     {
         // Update the current item list
-        string[] tags = {"Paper", "Plastic", "Food", "Glass"};
+        string[] tags = {"Paper", "Plastic", "Food", "Glass", "Food_in_box", "Liquid_bottle", "Strawberry_jam", "Wine_paperbag"};
         if (true) {
             spawned_item_tags.Clear();
             spawned_item_pos.Clear();
@@ -72,7 +102,7 @@ public class Trash_Dict_Handler : MonoBehaviour, Game_Interface_Data
                 // Add trash to the lists
                 foreach (GameObject trash in trashObjects) {
                     // Check that the added trash are not part of the original trash
-                    if (trash.transform.position != plastic_trash.transform.position && trash.transform.position != paper_trash.transform.position && trash.transform.position != food_trash.transform.position && trash.transform.position != glass_trash.transform.position) {
+                    if (trash.transform.position != plastic_trash.transform.position && trash.transform.position != paper_trash.transform.position && trash.transform.position != food_trash.transform.position && trash.transform.position != glass_trash.transform.position && trash.transform.position != foodbox_trash.transform.position && trash.transform.position != strawberryGlass_trash.transform.position && trash.transform.position != wineBag_trash.transform.position && trash.transform.position != liquidBottle_trash.transform.position) {
                         spawned_item_tags.Add(trash.tag);
                         spawned_item_pos.Add(trash.transform.position);
                         spawned_item_rot.Add(trash.transform.rotation);

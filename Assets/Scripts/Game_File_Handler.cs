@@ -7,7 +7,7 @@ using Unity.IO.LowLevel.Unsafe;
 
 public class Game_File_Handler
 {
-    // FILE LOCATION: C:\Users\Surface\AppData\LocalLow\DefaultCompany\My project
+    // File location is: "C:/../../AppData/Locallow/DefaultCompany/My project
     private string data_dir_path = "";
 
     private string data_filename = "";

@@ -91,18 +91,18 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                     held_item.transform.position = transform.position + direction;
                     held_item = null;
                 }
-                if (sink) {
+                else if (sink) {
                     //For tier 1 trash
                     if (held_item.tag == "Paper" || held_item.tag == "Food" || held_item.tag == "Plastic" || held_item.tag == "Glass") {
                         held_item.transform.parent = null;
                         held_item.transform.position = new Vector3 (sink_object.transform.position.x - 1f, sink_object.transform.position.y - 1f, sink_object.transform.position.z);
                         held_item = null;
-                        Debug.Log("TEST HELLO");
+                        //Debug.Log("TEST HELLO");
                         }
 
                     //For tier 2 trash
                     else if (held_item.tag == "Food_in_box"){
-                        Debug.Log("HELLO FOOD IN BOX");
+                        //Debug.Log("HELLO FOOD IN BOX");
                         points += 20;
                         accumulated_points += 20;
 
@@ -112,13 +112,13 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                         GameObject trash2 = GameObject.Instantiate(paper_object);
                         trash2.transform.position = new Vector3 (sink_object.transform.position.x - 1f, sink_object.transform.position.y - 1f, sink_object.transform.position.z);
                         
-                        Debug.Log("HELLO");
+                        //Debug.Log("HELLO");
                         Destroy(held_item);
                         held_item = null;
                     }
 
                     else if (held_item.tag == "Strawberry_jam"){
-                        Debug.Log("STRAWBERRYZ JAM HELLO");
+                        //Debug.Log("STRAWBERRYZ JAM HELLO");
                         points += 20;
                         accumulated_points += 20; 
 
@@ -130,7 +130,7 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                     }
 
                     else if (held_item.tag == "Liquid_bottle"){
-                        Debug.Log("LIQUID BOTTLE HELLO");
+                        //Debug.Log("LIQUID BOTTLE HELLO");
                         points += 20;
                         accumulated_points += 20;
 
@@ -142,7 +142,7 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                     }
 
                     else if(held_item.tag == "Wine_paperbag"){
-                        Debug.Log("WINEPAPERBAG HELLO");
+                        //Debug.Log("WINEPAPERBAG HELLO");
                         points += 20;
                         accumulated_points += 20; 
 
