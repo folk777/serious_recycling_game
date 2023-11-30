@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Camera_Control : MonoBehaviour
@@ -8,6 +9,8 @@ public class Camera_Control : MonoBehaviour
 
     public Transform bar_spot;
     public Transform target;
+
+    public Vector2 anchor;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,10 +28,18 @@ public class Camera_Control : MonoBehaviour
     void Update_Bar_Position() {
         RectTransform canvas_pos = level_bar.GetComponent<RectTransform>();
 
-        // [IN PROGRESS] Fixes the problem of level bar being in different position based on a ccomputer's screen size / resolution
-        // Vector2 anchored_pos = RectTransformUtility.WorldToScreenPoint(Camera.main, bar_spot.position);
-        canvas_pos.anchoredPosition = bar_spot.position;
-        //canvas_pos.anchoredPosition = anchored_pos - new Vector2(Screen.width / 2, Screen.height / 2);
+        // Get screen dimensions & calculate anchor positions
+        float screen_width = Screen.width;
+        float screen_height = Screen.height;
+
+        float anchor_x_pos = anchor.x * screen_width;
+        float anchor_y_pos = anchor.y * screen_height;
+
+        // Set anchor position for level bar
+        canvas_pos.anchorMin = new Vector2(1,1);
+        canvas_pos.anchorMax = new Vector2(1,1);
+
+        canvas_pos.anchoredPosition = new Vector2(-anchor_x_pos, -anchor_y_pos);
 
     }
 }

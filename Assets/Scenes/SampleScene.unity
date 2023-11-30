@@ -1648,6 +1648,7 @@ MonoBehaviour:
   level_bar: {fileID: 1517718633}
   bar_spot: {fileID: 1596470629}
   target: {fileID: 1935748412}
+  anchor: {x: 0.007, y: -0.004}
 --- !u!223 &519420035
 Canvas:
   m_ObjectHideFlags: 0
@@ -10792,7 +10793,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1517718630}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10802,11 +10803,11 @@ RectTransform:
   - {fileID: 407967751}
   - {fileID: 607905405}
   - {fileID: 1724068628}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1935748412}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -6.017, y: 2.084}
+  m_AnchoredPosition: {x: -6.517, y: 1.5840001}
   m_SizeDelta: {x: 0.4002, y: 2.5368}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1517718635
@@ -12765,6 +12766,7 @@ Transform:
   - {fileID: 837039164}
   - {fileID: 1596470629}
   - {fileID: 748469213}
+  - {fileID: 1517718634}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1935748413
@@ -13375,7 +13377,6 @@ SceneRoots:
   - {fileID: 1058939961}
   - {fileID: 683803825}
   - {fileID: 1916443613}
-  - {fileID: 1517718634}
   - {fileID: 795001409}
   - {fileID: 1153077674}
   - {fileID: 975749892}
