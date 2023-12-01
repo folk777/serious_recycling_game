@@ -8,10 +8,14 @@ TagManager:
   - Paper
   - Glass
   - Food
+<<<<<<< Updated upstream
   - Wine_paperbag
   - Food_in_box
   - Liquid_bottle
   - Strawberry_jam
+=======
+  - collisions
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX

@@ -12,6 +12,7 @@ public class Trash_Dict_Handler : MonoBehaviour, Game_Interface_Data
     public GameObject paper_trash;
     public GameObject food_trash;
     public GameObject glass_trash;
+<<<<<<< Updated upstream
 
     public GameObject foodbox_trash;
     public GameObject strawberryGlass_trash;
@@ -19,6 +20,8 @@ public class Trash_Dict_Handler : MonoBehaviour, Game_Interface_Data
     public GameObject liquidBottle_trash;
 
 
+=======
+>>>>>>> Stashed changes
     public List<string> spawned_item_tags;
 
     public List<Vector3> spawned_item_pos;
