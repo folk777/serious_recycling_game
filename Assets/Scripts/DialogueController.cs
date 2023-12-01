@@ -13,12 +13,13 @@ public class DialogueController : MonoBehaviour
     private bool StartDialogue = true;
     int sceneID;
 
-    public void Start()
+    void Start()
     {
         DialogueSpeed = 0.01f;
         // Start the dialogue immediately when the game starts
         DialogueAnimator.SetTrigger("Entry");
         StartDialogue = false;
+
         // Start writing the first sentence
         StartCoroutine(WriteSentence());
     }
@@ -36,9 +37,6 @@ public class DialogueController : MonoBehaviour
     {
         // Set the coroutine name
         StartCoroutineName = "WriteSentence";
-
-        // Clear the previous sentence
-        DialogueText.text = "";
 
         yield return new WaitForSeconds(2f);
 
@@ -62,7 +60,7 @@ public class DialogueController : MonoBehaviour
         else
         {
             // Wait for 5 seconds
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(5f);
 
             // Move to a different scene (change scene index as needed)
             SceneManager.LoadScene(0);
