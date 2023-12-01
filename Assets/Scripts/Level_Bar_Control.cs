@@ -53,7 +53,7 @@ public class Level_Bar_Manager : MonoBehaviour, Game_Interface_Data
 
     public void LoadData(Game_Data data) {
         this.level = data.playerLevel;
-        this.fill  = data.barFillAmount;
+        this.levelbar.fillAmount  = data.barFillAmount;
         this.points = data.playerPoints;
     }
 
