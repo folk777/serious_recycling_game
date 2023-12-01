@@ -288,15 +288,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DialogueText: {fileID: 403687478}
   Sentences:
-  - "Learn how to recycle with little Timmy and friends. Little Timmy and his friends
-    found trash laying on the ground and decided to pick it up and throw it away.
-    They don\u2019t know the proper recycling methods, so they throw the trash into
-    the wrong bins. Let\u2019s learn how to correctly sort out trash into the correct
-    bins with little Timmy through this game!"
-  - 'Game instructions:  Try to clean up your home by sorting all the trash.  You
-    can move around the map by W, A, S, D (up, down, right, left). Position next
-    to the trash and press E to pick trash up. Take the trash to the right bin and
-    press E to put it away. '
+  - "Oops! This is not the right bin. This bin is only for food! Composting food
+    waste helps create nutrient rich soil for our gardens. Let\u2019s sort it into
+    the right bin to make a sustainable world!"
   DialogueSpeed: 0.1
   DialogueAnimator: {fileID: 1936482617}
 --- !u!4 &1033059193

@@ -2,27 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class Player_Pickup : MonoBehaviour, Game_Interface_Data
 {
-
     public Transform hold_spot;
     public LayerMask pickup_mask;
     public LayerMask paper_bin_mask;
     public LayerMask plastic_bin_mask;
     public LayerMask glass_bin_mask;
     public LayerMask food_bin_mask;
+<<<<<<< Updated upstream
     public LayerMask sink_mask;
 
+=======
+>>>>>>> Stashed changes
     public int points;
-
     // For leaderboard (potentially)
     public int accumulated_points;
 
     public Vector3 direction {get ; set; }
 
     private GameObject held_item;
-    
     public GameObject paper_bin_holder;
     public GameObject plastic_bin_holder;
     public GameObject glass_bin_holder;
@@ -55,11 +57,13 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                 // Drop object in front of player and clear parent + item from player
                 // Check if dropping item into trashcan or not
                 if (paper_can || plastic_can || glass_can || food_can) {
-
                     if (paper_can) {
                         if (held_item.tag == "Paper") {
                             points += 20;
                             accumulated_points += 20;
+                        }
+                        else if (held_item.tag == "Plastic" || held_item.tag == "Glass" || held_item.tag == "Food"){
+                            SceneManager.LoadScene("paper_dialog");
                         }
                         Destroy(held_item);
                         //held_item.transform.parent = paper_bin_holder.transform;
@@ -69,6 +73,10 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                             points += 20;
                             accumulated_points += 20;
                         }
+                        else if (held_item.tag == "Glass" || held_item.tag == "Paper" || held_item.tag == "Food"){
+                            SceneManager.LoadScene("plastic_dialog");
+                        }
+
                         Destroy(held_item);
                         //held_item.transform.parent = plastic_bin_holder.transform;
                     }
@@ -76,6 +84,9 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                         if (held_item.tag == "Glass") {
                             points += 20;
                             accumulated_points += 20;
+                        }
+                        else if (held_item.tag == "Plastic" || held_item.tag == "Paper" || held_item.tag == "Food"){
+                            SceneManager.LoadScene("glass_dialog");
                         }
                         Destroy(held_item);
                         //held_item.transform.parent = glass_bin_holder.transform;
@@ -85,12 +96,16 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                             points += 20;
                             accumulated_points += 20;
                         }
+                        else if (held_item.tag == "Plastic" || held_item.tag == "Paper" || held_item.tag == "Glass"){
+                            SceneManager.LoadScene("food_dialog");
+                        }
                         Destroy(held_item);
                         //held_item.transform.parent = food_bin_holder.transform;
                     }
                     held_item.transform.position = transform.position + direction;
                     held_item = null;
                 }
+<<<<<<< Updated upstream
                 else if (sink) {
                     //For tier 1 trash
                     if (held_item.tag == "Paper" || held_item.tag == "Food" || held_item.tag == "Plastic" || held_item.tag == "Glass") {
@@ -156,13 +171,21 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                     }
                 }
 
+=======
+                // else if(gameObject.tag="collisions"){
+                //     Debu.Log("lu mare1");
+                // }
+                
+>>>>>>> Stashed changes
                 // If not dropping into trashcan 
                 else {
+                    // Debug.Log("NOT A TRASH CAN");
                     held_item.transform.parent = null;
                     held_item.transform.position = transform.position + direction;
                     held_item = null;
                 }
             }
+            
             // If no item currently held, pick up object
             else {
                 Collider2D pick_item = Physics2D.OverlapCircle(transform.position + direction, .4f, pickup_mask);
@@ -185,6 +208,12 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
 
         }
     }
+
+    // private void onCollissionEnter(Collision collision) {
+    //     if (collision.gameObject.tag="collisions"){
+    //         Debu.Log("lu mare");
+    //     }
+    // }
 
     public void LoadData(Game_Data data) {
         this.points = data.playerPoints;

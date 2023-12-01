@@ -64,7 +64,6 @@ public class Player_Control : MonoBehaviour
                     if (!Physics2D.OverlapCircle(move_point.position + new Vector3(Input.GetAxisRaw("Horizontal") + 0.5f, 0f, 0f), .2f, collision) && !Physics2D.OverlapCircle(move_point.position + new Vector3(Input.GetAxisRaw("Horizontal") - 0.5f, 0f, 0f), .2f, collision) ) {
                         pickup.direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
                     }
-
                     // Move player
                     move_point.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
 
@@ -77,7 +76,12 @@ public class Player_Control : MonoBehaviour
                 }
             }
             else if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f) {
+<<<<<<< Updated upstream
                 if (!hitbox_vertical && !trashcan_vertical && !sink_vertical) {
+=======
+                if (!hitbox_vertical && !trashcan_vertical) {
+                    // Debug.Log("collision detected");
+>>>>>>> Stashed changes
                     // If position in front/back of player is collision, don't drop item there
                     if (!Physics2D.OverlapCircle(move_point.position + new Vector3(0f, Input.GetAxisRaw("Vertical") + 0.5f, 0f), .2f, collision) && !Physics2D.OverlapCircle(move_point.position + new Vector3(0f, Input.GetAxisRaw("Vertical") - 0.5f, 0f), .2f, collision)) {
                         pickup.direction = new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);

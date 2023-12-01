@@ -10,6 +10,7 @@ public class Level_Bar_Manager : MonoBehaviour, Game_Interface_Data
     public Image levelbar;
     private int level_progress = 0;
 
+    public DialogueController DialogueControl;
     private int points;
     private float fill;
     private float level_progress_required = 50f;
@@ -35,6 +36,7 @@ public class Level_Bar_Manager : MonoBehaviour, Game_Interface_Data
     // Update is called once per frame
     void Update()
     {
+        // DialogueController DialogueController = GetComponent<DialogueController>();
         // If player points are updated and level bar is not full, update level bar as well
         if (levelbar.fillAmount != 1.0f) {
             level_progress = player.points;
@@ -48,6 +50,7 @@ public class Level_Bar_Manager : MonoBehaviour, Game_Interface_Data
             level_progress = 0;
             player.points = 0;
             level ++;
+            DialogueControl.Start();
         }
     }
 
