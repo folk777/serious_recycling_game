@@ -64,7 +64,6 @@ public class Player_Control : MonoBehaviour
                     if (!Physics2D.OverlapCircle(move_point.position + new Vector3(Input.GetAxisRaw("Horizontal") + 0.5f, 0f, 0f), .2f, collision) && !Physics2D.OverlapCircle(move_point.position + new Vector3(Input.GetAxisRaw("Horizontal") - 0.5f, 0f, 0f), .2f, collision) ) {
                         pickup.direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
                     }
-
                     // Move player
                     move_point.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
 
