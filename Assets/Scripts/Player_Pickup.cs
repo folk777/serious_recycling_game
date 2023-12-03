@@ -61,32 +61,32 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
 
                     if (paper_can) {
                         if (held_item.tag == "Paper") {
-                            points += 20;
-                            accumulated_points += 20;
+                            points += 10;
+                            accumulated_points += 10;
                         }
                         Destroy(held_item);
                         //held_item.transform.parent = paper_bin_holder.transform;
                     }
                     if (plastic_can) {
                         if (held_item.tag == "Plastic") {
-                            points += 20;
-                            accumulated_points += 20;
+                            points += 10;
+                            accumulated_points += 10;
                         }
                         Destroy(held_item);
                         //held_item.transform.parent = plastic_bin_holder.transform;
                     }
                     if (glass_can) {
                         if (held_item.tag == "Glass") {
-                            points += 20;
-                            accumulated_points += 20;
+                            points += 10;
+                            accumulated_points += 10;
                         }
                         Destroy(held_item);
                         //held_item.transform.parent = glass_bin_holder.transform;
                     }
                     if (food_can) {
                         if (held_item.tag == "Food") {
-                            points += 20;
-                            accumulated_points += 20;
+                            points += 10;
+                            accumulated_points += 10;
                         }
                         Destroy(held_item);
                         //held_item.transform.parent = food_bin_holder.transform;
