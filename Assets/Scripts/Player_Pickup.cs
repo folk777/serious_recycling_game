@@ -13,6 +13,8 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
     public LayerMask glass_bin_mask;
     public LayerMask food_bin_mask;
     public LayerMask sink_mask;
+    
+    public LayerMask solid_mask;
 
     public int points;
 
@@ -52,6 +54,7 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                 Collider2D glass_can = Physics2D.OverlapCircle(transform.position + direction, .4f, glass_bin_mask);
                 Collider2D food_can = Physics2D.OverlapCircle(transform.position + direction, .4f, food_bin_mask);
                 Collider2D sink = Physics2D.OverlapCircle(transform.position + direction, .4f, sink_mask);
+                Collider2D solid = Physics2D.OverlapCircle(transform.position + direction, .4f, solid_mask);
                 // Drop object in front of player and clear parent + item from player
                 // Check if dropping item into trashcan or not
                 if (paper_can || plastic_can || glass_can || food_can) {
@@ -157,7 +160,7 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                 }
 
                 // If not dropping into trashcan 
-                else {
+                else if (!solid) {
                     held_item.transform.parent = null;
                     held_item.transform.position = transform.position + direction;
                     held_item = null;
