@@ -17,6 +17,10 @@ public class SettingsButton : MonoBehaviour
     public void LoadSettings(){
         SceneManager.LoadScene("SettingsButton");
     }
+
+    public void LoadLeaderBoard(){
+        SceneManager.LoadScene("LeaderBoard");
+    }
 }
 
 // Add the load leaderboard function
