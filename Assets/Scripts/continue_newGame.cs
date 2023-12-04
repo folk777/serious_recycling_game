@@ -10,7 +10,6 @@ public class continue_newGame : MonoBehaviour
 {
     // Path to the JSON file
     private string filePath;
-
     public void MoveToScene()
     {
         // Set the file path within the "Resources" folder (adjust the file name as needed)
