@@ -33,8 +33,8 @@ EditorBuildSettings:
     path: Assets/Scenes/paper_d_w.unity
     guid: 0532a547471184a27814c6c378959d55
   - enabled: 1
-    path: Assets/Scenes/paper_d_c.unity
-    guid: ab9de2abb2f01449bae798eb12e4489c
+    path: Assets/Scenes/plastic_d_c.unity
+    guid: d708b9440385d4436bdae73bb105a1a3
   - enabled: 1
     path: Assets/Scenes/EnterName.unity
     guid: 379b1067519064d788af912195fc8e3d
@@ -45,8 +45,8 @@ EditorBuildSettings:
     path: Assets/Scenes/glass_d_c.unity
     guid: 73a28738def32400db817dc67724d649
   - enabled: 1
-    path: Assets/Scenes/food_d_w.unity
-    guid: 0a764da9bc7784218aa4263f5ce6e7b6
+    path: Assets/Scenes/SettingsButton.unity
+    guid: 53f4782833c4b9948901d21966b10e77
   - enabled: 1
     path: Assets/Scenes/food_d_c.unity
     guid: 73fb2e854a2434b53952cef3f093dcc0

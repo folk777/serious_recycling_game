@@ -40,6 +40,8 @@ public class Trash_Spawner : MonoBehaviour, Game_Interface_Data
 
     private int current_trash_amount;
 
+    private bool test_bool = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -61,13 +63,29 @@ public class Trash_Spawner : MonoBehaviour, Game_Interface_Data
         // Spawn all the trash that should have been spawned since player closed game (1 trash per hour)
         while (spawnAmount != 0) {
             SpawnTrash();
-            spawnAmount--;
+
+            // Make sure that trash is actually spawned
+            if (test_bool) {
+                spawnAmount --;
+            }
+            test_bool = false;
+
             yield return new WaitForSecondsRealtime(0);
         }
         // If spawned all saved time related trash, spawn new trash every 10 seconds
         while (spawnAmount == 0) {
             SpawnTrash();
-            yield return new WaitForSecondsRealtime(10);
+
+            // If item actually spawned, wait 10 seconds to spawn again
+            if (test_bool) {
+                yield return new WaitForSecondsRealtime(10);
+            }
+
+            // Else try to spawn item again
+            else {
+                yield return new WaitForSecondsRealtime(0);
+            }
+        
         }
     }   
 
@@ -124,12 +142,16 @@ public class Trash_Spawner : MonoBehaviour, Game_Interface_Data
         Collider2D unspawnable_solid_blocks = Physics2D.OverlapCircle(random_position, .2f, solid_objects);
         Collider2D unspawnable_bin_blocks = Physics2D.OverlapCircle(random_position, .2f, trash_bins);
 
+        if (unspawnable_bin_blocks && unspawnable_solid_blocks) {
+            test_bool = false;
+        }
+
         // If trash position is suitable, spawn it
         if (!unspawnable_solid_blocks && !unspawnable_bin_blocks) {
 
             // Check that limit is not reached yet
             if (current_trash_amount < trash_limit) {
-
+                test_bool = true;
                 // Spawn trash based on number, pos, and rotation
                 if (random_num_trash == 0) {
                     GameObject trash = GameObject.Instantiate(plastic_trash); 
