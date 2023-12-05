@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 
 public class Level_Bar_Manager : MonoBehaviour, Game_Interface_Data
 {
@@ -41,6 +41,10 @@ public class Level_Bar_Manager : MonoBehaviour, Game_Interface_Data
             // DialogueControl.Start();
             level_progress = player.points;
             levelbar.fillAmount = fill + (level_progress / (level_progress_required * level));
+            if (level >= 2 && level <= 4)
+            {
+                SceneManager.LoadScene("level_up_dialog");
+            }
         }
 
         // If level bar is full, restart bar and update level

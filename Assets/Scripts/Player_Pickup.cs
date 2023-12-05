@@ -4,6 +4,9 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using System.IO;
+using System.Linq;
 
 [System.Serializable]
 public class TrashCanData
@@ -44,7 +47,7 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
     public GameObject glass_object;
     public GameObject food_object;
     public GameObject paper_object;
-
+    private string filepath;
 
     // Update is called once per frame
     void Start() {
@@ -270,7 +273,7 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
 
     void LoadTrashCanData()
     {
-        string filePath = "/Users/zac/Documents/GitHub/serious_recycling_game/Assets/Resources/trash_can_counter.json";
+        string filePath = Path.Combine(Application.persistentDataPath, "trash_can_counter.json");
         if (System.IO.File.Exists(filePath))
     {
         string jsonData = System.IO.File.ReadAllText(filePath);
@@ -294,7 +297,7 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
 
     void SaveTrashCanData()
     {
-        string filePath = "/Users/zac/Documents/GitHub/serious_recycling_game/Assets/Resources/trash_can_counter.json";
+        string filePath = Path.Combine(Application.persistentDataPath, "trash_can_counter.json");
         string jsonData = JsonUtility.ToJson(trashCanData);
         System.IO.File.WriteAllText(filePath, jsonData);
     }

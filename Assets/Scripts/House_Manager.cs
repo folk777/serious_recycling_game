@@ -12,7 +12,7 @@ public class House_Manager : MonoBehaviour, Game_Interface_Data
     public GameObject house_2;
     public GameObject house_3;
 
-    private Vector3 onscreen_pos = new Vector3 (5f, -1f, 1f);
+    private Vector3 onscreen_pos = new Vector3 (15f, -3f, 3f);
 
     private Vector3 offscreen_pos = new Vector3 (100f, 100f, 1f);
 

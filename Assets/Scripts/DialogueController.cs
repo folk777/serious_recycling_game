@@ -90,7 +90,7 @@ public class DialogueController : MonoBehaviour
             yield return new WaitForSeconds(2f);
 
             // Move to a different scene (change scene index as needed)
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("SampleScene");
         }
     }
 }

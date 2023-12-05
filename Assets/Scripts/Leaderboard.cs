@@ -28,48 +28,45 @@ public class Leaderboard : MonoBehaviour
     }
 
     [System.Serializable]
-    private class PlayerInfoList
+    private class GameData
     {
-        public List<PlayerInfo> PlayerInfo;
+        public int playerLevel;
+        public int playerPoints;
+        public int playerTotalPoints;
+        public float barFillAmount;
+        public string playerName;
+        public long lastSavedTime;
+        // Add other fields from game_data.json as needed
     }
 
-    [System.Serializable]
-    private class PlayerInfo
-    {
-        public string username;
-        public int accumulated_points;
-    }
     private string playerUsername;
     private int playerAccumulatedPoints;
 
     void Start()
     {
-        string playerInfoPath = "/Users/zac/Documents/GitHub/serious_recycling_game/Assets/Resources/player_info.json";
-        filepath = Path.Combine(Application.persistentDataPath, "/Users/zac/Documents/GitHub/serious_recycling_game/Assets/Resources/leaderboardData.json");
+        // Get the path to the persistent data directory
+        string persistentDataPath = Application.persistentDataPath;
+        string gameDataPath = Path.Combine(Application.persistentDataPath, "game_data.json");
+        filepath = Path.Combine(Application.persistentDataPath, "leaderboardData.json");
 
         CreateIfNotExists();
-        
-        // Load and print the content of the player_info.json file
-        if (File.Exists(playerInfoPath))
+
+        // Load and print the content of the game_data.json file
+        if (File.Exists(gameDataPath))
         {
-            string playerInfoJson = File.ReadAllText(playerInfoPath);
-            Debug.Log("Player Info JSON:\n" + playerInfoJson);
+            string gameDataJson = File.ReadAllText(gameDataPath);
+            Debug.Log("Game Data JSON:\n" + gameDataJson);
 
-            // Now you can parse the playerInfoJson if needed
-            PlayerInfoList playerInfoList = JsonUtility.FromJson<PlayerInfoList>(playerInfoJson);
+            // Now you can parse the gameDataJson if needed
+            GameData gameData = JsonUtility.FromJson<GameData>(gameDataJson);
 
-            // Accessing the first player info (assuming there's only one)
-            if (playerInfoList.PlayerInfo.Count > 0)
-            {
-                PlayerInfo firstPlayerInfo = playerInfoList.PlayerInfo[0];
-                playerUsername = firstPlayerInfo.username;
-                playerAccumulatedPoints = firstPlayerInfo.accumulated_points;
-                // Debug.Log($"Username: {firstPlayerInfo.username}, Accumulated Points: {firstPlayerInfo.accumulated_points}");
-            }
+            // Assign player data from game_data.json
+            playerUsername = gameData.playerName;
+            playerAccumulatedPoints = gameData.playerTotalPoints;
         }
         else
         {
-            Debug.LogError("Player Info file not found.");
+            Debug.LogError("Game Data file not found.");
         }
 
         LoadData();
@@ -78,12 +75,13 @@ public class Leaderboard : MonoBehaviour
         {
             leaderboardData = new List<NamedInt>
             {
-                new NamedInt { Pos = 1, Name = "Dwight", Value = 0 },
-                new NamedInt { Pos = 2, Name = "Michael", Value = 0 },
-                new NamedInt { Pos = 3, Name = "Pam", Value = 0 },
-                new NamedInt { Pos = 4, Name = "Jim", Value = 0 }
+                new NamedInt { Pos = 1, Name = "Dwight", Value = 110 },
+                new NamedInt { Pos = 2, Name = "Michael", Value = 220 },
+                new NamedInt { Pos = 3, Name = "Pam", Value = 330 },
+                new NamedInt { Pos = 4, Name = "Jim", Value = 450 }
             };
             leaderboardData.Add(new NamedInt { Pos = 5, Name = playerUsername, Value = playerAccumulatedPoints });
+
         }
         else
         {
@@ -105,11 +103,10 @@ public class Leaderboard : MonoBehaviour
         leaderboardData = leaderboardData.OrderByDescending(x => x.Value).ToList();
 
         UpdatePositions();
-        
+
         // Display the leaderboard data when the scene starts
         UpdateLeaderboardText();
     }
-
 
     void Update()
     {
@@ -133,28 +130,27 @@ public class Leaderboard : MonoBehaviour
     }
 
     void IncreaseValue(NamedInt namedInt)
-{
-    if (namedInt.Name.Equals(playerUsername, System.StringComparison.OrdinalIgnoreCase))
     {
-        // Do not increase the player's points
-        return;
-    }
+        if (namedInt.Name.Equals(playerUsername, System.StringComparison.OrdinalIgnoreCase))
+        {
+            // Do not increase the player's points
+            return;
+        }
 
-    if (namedInt.Name.Equals("Phyllis", System.StringComparison.OrdinalIgnoreCase))
-    {
-        // Set Phyllis' points to 0
-        namedInt.Value = 0;
-    }
-    else
-    {
-        // Increment points for other names
-        int randomIncrement = Random.Range(1, 100);
-        namedInt.Value += randomIncrement;
-    }
+        if (namedInt.Name.Equals("Jim", System.StringComparison.OrdinalIgnoreCase))
+        {
+            // Set Phyllis' points to 0
+            namedInt.Value = 0;
+        }
+        else
+        {
+            // Increment points for other names
+            int randomIncrement = Random.Range(1, 100);
+            namedInt.Value += randomIncrement;
+        }
 
-    // Debug.Log(namedInt.Name + ": " + namedInt.Value + " at time: " + Time.time);
-}
-
+        // Debug.Log(namedInt.Name + ": " + namedInt.Value + " at time: " + Time.time);
+    }
 
     void SaveData()
     {
@@ -170,7 +166,7 @@ public class Leaderboard : MonoBehaviour
 
         string jsonData = JsonUtility.ToJson(wrapper);
         File.WriteAllText(filepath, jsonData);
-        // Debug.Log("Data saved to JSON: " + filepath);
+        Debug.Log("Data saved to JSON: " + filepath);
     }
 
     void LoadData()
@@ -191,7 +187,6 @@ public class Leaderboard : MonoBehaviour
 
     void UpdatePositions()
     {
-
         for (int i = 0; i < leaderboardData.Count; i++)
         {
             leaderboardData[i].Pos = i;
@@ -217,7 +212,6 @@ public class Leaderboard : MonoBehaviour
             leaderboardText.text = leaderboardString;
         }
     }
-
 
     void CreateIfNotExists()
     {

@@ -28,16 +28,16 @@ public class PlayerNameDisplay : MonoBehaviour , Game_Interface_Data
         //string savedPlayerName = PlayerPrefs.GetString("PlayerName");
 
         // Display the player name in Scene 2
-        if (!string.IsNullOrEmpty(playernamestr))
-        {
-            playerNameDisplay.text = "Welcome, " + playernamestr + "!";
+        // if (!string.IsNullOrEmpty(playernamestr))
+        // {
+        //     playerNameDisplay.text = "Welcome, " + playernamestr + "!";
 
-            //Game_Data.newPlayerName = playerNameDisplay.text;
-        }
-        else
-        {
-            playerNameDisplay.text = "Player Name not set";
-        }
+        //     //Game_Data.newPlayerName = playerNameDisplay.text;
+        // }
+        // else
+        // {
+        //     playerNameDisplay.text = "Player Name not set";
+        // }
     }
 
     public void LoadData(Game_Data data)

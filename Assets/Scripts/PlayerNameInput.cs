@@ -91,11 +91,26 @@ public class PlayerNameInput : MonoBehaviour
 
     public void EnterName_StartGame()
     {
+        // Get the player's input
+        string playerName = playerNameInput.text;
 
-        Debug.Log("valueeee::::" + playerNameInput.text);
-        PlayerNameDisplay.playernamestr = playerNameInput.text;
+        // Enforce the character limit (assuming you want to truncate the input)
+        if (playerName.Length <= 12 && playerName.Length >3)
+        {
+            // Log the value (optional)
+            Debug.Log("Player Name: " + playerName);
 
-        SceneManager.LoadScene("SampleScene");
+            // Set the player name for display
+            PlayerNameDisplay.playernamestr = playerName;
+
+            // Load the next scene
+            SceneManager.LoadScene("SampleScene");
+        }
+        else
+        {
+            // Display an error message or handle the situation where the character limit is exceeded
+            Debug.LogWarning("Character limit exceeded. Please enter a name with 14 characters or less.");
+        }
     }
 
     public void BacktoMainMenu()

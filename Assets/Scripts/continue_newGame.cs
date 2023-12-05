@@ -1,52 +1,115 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
-// must do it after user clicks on button
-// - Continue/new game —> check if json file exists, if it doesn’t move to dialog_1, if it does skip dialog_1
 
 public class continue_newGame : MonoBehaviour
 {
-    // Path to the JSON file
-    private string filePath;
-    public void MoveToScene()
+    private string filepath;
+    private string gamedata;
+
+    [System.Serializable]
+    public class LeaderboardWrapper
     {
-        // Set the file path within the "Resources" folder (adjust the file name as needed)
-        filePath = Path.Combine(Application.dataPath, "Resources", "test.json");
+        public List<NamedInt> NamedInts;
+    }
 
-        // Check if the JSON file exists
-        if (File.Exists(filePath))
+    [System.Serializable]
+    public class NamedInt  // Make NamedInt class public
+    {
+        public int Pos;
+        public string Name;
+        public int Value;
+    }
+
+    [System.Serializable]
+    public class GameData
+    {
+        public int correct_trash;
+        public int wrong_trash;
+    }
+
+    void MoveToScene()
+    {
+        // Get the path to the persistent data directory
+        string persistentDataPath = Application.persistentDataPath;
+
+        // Check if "game_data.json" exists in the specified directory
+        string[] files = Directory.GetFiles(persistentDataPath);
+
+        bool gameDataExists = Array.Exists(files, file => file.Contains("game_data.json"));
+
+        if (gameDataExists)
         {
-            // File exists, skip dialog_1 (you can add your logic here)
-            Debug.Log("JSON file exists.");
-            SceneManager.LoadScene(0);
-
+            Debug.Log("continue game");
+            SceneManager.LoadScene("SampleScene");
         }
         else
         {
-            // File doesn't exist, move to dialog_1 (you can add your logic here)
-            Debug.Log("JSON file does not exist.");
-            SceneManager.LoadScene(2);
-            // Create and save a sample JSON file (you can replace this with your actual data)
-            SaveSampleJson();
+            Debug.Log("new game");
+            SceneManager.LoadScene("EnterName");
+            SetLeaderboardValues();
+            DeleteTrashCanFile();
         }
     }
 
-    void Update()
+    public void SetLeaderboardValues()
     {
-        // Add your update logic here if needed
+        string persistentDataPath = Application.persistentDataPath;
+        filepath = Path.Combine(Application.persistentDataPath, "leaderboardData.json");
+
+        // Load existing leaderboard data
+        List<NamedInt> existingLeaderboardData = new List<NamedInt>();
+        if (File.Exists(filepath))
+        {
+            string jsonData = File.ReadAllText(filepath);
+            LeaderboardWrapper wrapper = JsonUtility.FromJson<LeaderboardWrapper>(jsonData);
+            if (wrapper != null)
+            {
+                existingLeaderboardData = wrapper.NamedInts;
+            }
+        }
+
+        // Set every value to 0 for every name
+        foreach (NamedInt namedInt in existingLeaderboardData)
+        {
+            namedInt.Value = 0;
+        }
+
+        // Save the updated leaderboard data
+        LeaderboardWrapper updatedWrapper = new LeaderboardWrapper
+        {
+            NamedInts = existingLeaderboardData
+        };
+
+        string updatedJsonData = JsonUtility.ToJson(updatedWrapper);
+        File.WriteAllText(filepath, updatedJsonData);
+
+        Debug.Log("Leaderboard values set to 0 for every name.");
     }
 
-    // Function to save a sample JSON file
-    void SaveSampleJson()
+    public void DeleteTrashCanFile()
     {
-        // Sample JSON data (replace this with your actual data)
-        string jsonData = "{ \"key\": \"value\" }";
+        filepath = Path.Combine(Application.persistentDataPath, "trash_can_counter.json");
 
-        // Write the JSON data to the file
-        File.WriteAllText(filePath, jsonData);
-
-        Debug.Log("Sample JSON file saved at: " + filePath);
+        try
+        {
+            // Check if the file exists before trying to delete
+            if (File.Exists(filepath))
+            {
+                File.Delete(filepath);
+                Debug.Log("Trash can file deleted successfully: " + filepath);
+            }
+            else
+            {
+                Debug.LogWarning("Trash can file does not exist: " + filepath);
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Error deleting trash can file: " + e.Message);
+        }
     }
 }
