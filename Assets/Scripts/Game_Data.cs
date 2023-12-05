@@ -28,6 +28,8 @@ public class Game_Data
 
  public int currentItemCount;
 
+ public Vector3 playerPosition;
+
  //public static string newPlayerName;
 
 
@@ -44,6 +46,7 @@ public class Game_Data
     this.currentItemPos = new List<Vector3>();
     this.currentItemRot = new List<Quaternion>();
     this.currentItemCount = 0;
+    this.playerPosition = new Vector3 (0.5f, 0.5f, 0);
     
     
     // Get current time;

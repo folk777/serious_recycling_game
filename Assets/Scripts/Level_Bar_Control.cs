@@ -6,14 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class Level_Bar_Manager : MonoBehaviour, Game_Interface_Data
 {
-    private bool levelUpSceneLoaded = false;
+    private bool levelUpSceneLoaded = true;
     public Image levelbar;
     private int level_progress = 0;
 
     // public DialogueController DialogueControl;
     private int points;
     private float fill;
-    private float level_progress_required = 50f;
+    private float level_progress_required = 90f;
     public int level;
     
     private Player_Pickup player;
@@ -45,6 +45,7 @@ public class Level_Bar_Manager : MonoBehaviour, Game_Interface_Data
             {
                 SceneManager.LoadScene("level_up_dialog");
                 levelUpSceneLoaded = true;
+                Debug.Log("HELLO");
             }
         }
 

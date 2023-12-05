@@ -21,7 +21,7 @@ public class Level_Unlock_Area : MonoBehaviour
     {
         // Get the LevelDivider children in Grid
         GameObject grid_object = GameObject.Find("Grid");
-        grid_child = grid_object.transform.GetChild(4).gameObject;
+        grid_child = grid_object.transform.GetChild(5).gameObject;
         level_one_blockers = grid_child.transform.GetChild(0).gameObject;
         level_two_blockers = grid_child.transform.GetChild(1).gameObject;
         level_three_blockers = grid_child.transform.GetChild(2).gameObject;

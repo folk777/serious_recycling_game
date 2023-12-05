@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Player_Control : MonoBehaviour
+public class Player_Control : MonoBehaviour, Game_Interface_Data
 {   
 
     public float move_speed = 5f;
@@ -21,13 +21,15 @@ public class Player_Control : MonoBehaviour
 
     private Player_Pickup pickup;
 
-    private Vector3 pos;
 
 
     void Start() {
+        // Don't comment this or player breaks
         move_point.parent = null;
 
         animate = GetComponent<Animator>();
+
+        //transform.position = pos;
 
         // Initiate pickup direction and object
         pickup = gameObject.GetComponent<Player_Pickup>();
@@ -35,8 +37,10 @@ public class Player_Control : MonoBehaviour
     }
 
     void Update() {
+        
         //Debug.Log("1: " + transform.position);
         transform.position = Vector3.MoveTowards(transform.position, move_point.position, move_speed * Time.deltaTime);
+
         //Debug.Log("2: " + transform.position);
 
         Collider2D hitbox_horizontal = Physics2D.OverlapCircle(move_point.position + new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f), .2f, collision);
@@ -91,5 +95,13 @@ public class Player_Control : MonoBehaviour
                 }
             }
         }
+    }
+    public void LoadData(Game_Data data) {
+        transform.position = data.playerPosition;
+
+    }
+
+    public void SaveData(ref Game_Data data){
+        data.playerPosition = transform.position;
     }
 }

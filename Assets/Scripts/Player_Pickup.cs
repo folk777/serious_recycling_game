@@ -41,7 +41,6 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
     public int wrong_trash;
     private TrashCanData trashCanData;
 
-    public GameObject sink_object;
 
     public GameObject plastic_object;
     public GameObject glass_object;
@@ -166,7 +165,7 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                     //For tier 1 trash
                     if (held_item.tag == "Paper" || held_item.tag == "Food" || held_item.tag == "Plastic" || held_item.tag == "Glass") {
                         held_item.transform.parent = null;
-                        held_item.transform.position = new Vector3 (sink_object.transform.position.x - 1f, sink_object.transform.position.y - 1f, sink_object.transform.position.z);
+                        held_item.transform.position = new Vector3 (sink.transform.position.x - 1f, sink.transform.position.y - 1f, sink.transform.position.z);
                         held_item = null;
                         //Debug.Log("TEST HELLO");
                         }
@@ -178,10 +177,10 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                         accumulated_points += 20;
 
                         GameObject trash = GameObject.Instantiate(food_object);
-                        trash.transform.position = new Vector3 (sink_object.transform.position.x - 0f, sink_object.transform.position.y - 1f, sink_object.transform.position.z);
+                        trash.transform.position = new Vector3 (sink.transform.position.x - 0f, sink.transform.position.y - 1f, sink.transform.position.z);
 
                         GameObject trash2 = GameObject.Instantiate(paper_object);
-                        trash2.transform.position = new Vector3 (sink_object.transform.position.x - 1f, sink_object.transform.position.y - 1f, sink_object.transform.position.z);
+                        trash2.transform.position = new Vector3 (sink.transform.position.x - 1f, sink.transform.position.y - 1f, sink.transform.position.z);
                         
                         //Debug.Log("HELLO");
                         Destroy(held_item);
@@ -194,7 +193,7 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                         accumulated_points += 20; 
 
                         GameObject trash = GameObject.Instantiate(glass_object);
-                        trash.transform.position = new Vector3 (sink_object.transform.position.x - 0f, sink_object.transform.position.y - 1f, sink_object.transform.position.z);
+                        trash.transform.position = new Vector3 (sink.transform.position.x - 0f, sink.transform.position.y - 1f, sink.transform.position.z);
 
                         Destroy(held_item);
                         held_item = null;  
@@ -206,7 +205,7 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                         accumulated_points += 20;
 
                         GameObject trash = GameObject.Instantiate(plastic_object);
-                        trash.transform.position = new Vector3 (sink_object.transform.position.x - 0f, sink_object.transform.position.y - 1f, sink_object.transform.position.z);
+                        trash.transform.position = new Vector3 (sink.transform.position.x - 0f, sink.transform.position.y - 1f, sink.transform.position.z);
 
                         Destroy(held_item);
                         held_item = null;
@@ -218,10 +217,10 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                         accumulated_points += 20; 
 
                         GameObject trash = GameObject.Instantiate(glass_object);
-                        trash.transform.position = new Vector3 (sink_object.transform.position.x - 0f, sink_object.transform.position.y - 1f, sink_object.transform.position.z);
+                        trash.transform.position = new Vector3 (sink.transform.position.x - 0f, sink.transform.position.y - 1f, sink.transform.position.z);
 
                         GameObject trash2 = GameObject.Instantiate(paper_object);
-                        trash2.transform.position = new Vector3 (sink_object.transform.position.x - 1f, sink_object.transform.position.y - 1f, sink_object.transform.position.z);
+                        trash2.transform.position = new Vector3 (sink.transform.position.x - 1f, sink.transform.position.y - 1f, sink.transform.position.z);
                         Destroy(held_item);
                         held_item = null;  
                     }

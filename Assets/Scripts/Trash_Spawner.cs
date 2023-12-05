@@ -42,6 +42,8 @@ public class Trash_Spawner : MonoBehaviour, Game_Interface_Data
 
     private bool test_bool = false;
 
+    private GameObject trash;
+
 
     // Start is called before the first frame update
     void Start()
@@ -51,8 +53,8 @@ public class Trash_Spawner : MonoBehaviour, Game_Interface_Data
         // Get how long it has been since player opened game
         remainderTime = currentTime - savedTime;
 
-        // Current remainder time trash spawn rate is 1 trash per hour
-        spawnAmount = Math.Abs(remainderTime / 3600);
+        // Current remainder time trash spawn rate is 2 trash per hour
+        spawnAmount = Math.Abs(remainderTime / 1800);
 
         Debug.Log("SAVE TIME: " + savedTime + " // CURRENT TIME: " + currentTime + " // Amount Spawning: " + spawnAmount);
 
@@ -92,21 +94,21 @@ public class Trash_Spawner : MonoBehaviour, Game_Interface_Data
     public void SpawnTrash() {
         // Randomly select which trash to spawn based on level
         if (level == 1) {
-            // If level 1, only spawn 3 types of tier 1 trash
-            random_num_trash = UnityEngine.Random.Range(0,3);
+            // If level 1, only spawn all tier 1 trash
+            random_num_trash = UnityEngine.Random.Range(0,4);
 
             // Randomly spawn trash in level 1 (home) section
-            random_num_x = UnityEngine.Random.Range(-3, 3);
-            random_num_y = UnityEngine.Random.Range(-3, 3); // (-2, 3)
+            random_num_x = UnityEngine.Random.Range(-12, 10);
+            random_num_y = UnityEngine.Random.Range(-2, 8); // (-2, 3)
 
         }
         else if (level == 2) {
-            // If level 2, spawn all tier 1 trash
+            // If level 2, spawn no new things
             random_num_trash = UnityEngine.Random.Range(0,4);
 
             // Randomly spawn trash in level 1 + 2 section
-            random_num_x = UnityEngine.Random.Range(-3, 3);
-            random_num_y = UnityEngine.Random.Range(-3, 3); // (-2, 3)
+            random_num_x = UnityEngine.Random.Range(-12, 22);
+            random_num_y = UnityEngine.Random.Range(-2, 8); // (-2, 3)
 
         }
 
@@ -116,8 +118,8 @@ public class Trash_Spawner : MonoBehaviour, Game_Interface_Data
             random_num_trash = UnityEngine.Random.Range(0,6);
 
             // Randomly spawn trash in level 1 + 2 + 3 section
-            random_num_x = UnityEngine.Random.Range(-3, 3);
-            random_num_y = UnityEngine.Random.Range(-3, 3); // (-2, 3)
+            random_num_x = UnityEngine.Random.Range(-30, 22);
+            random_num_y = UnityEngine.Random.Range(-2, 18); // (-2, 3)
         }
 
         else if (level >= 4) {
@@ -125,14 +127,14 @@ public class Trash_Spawner : MonoBehaviour, Game_Interface_Data
             random_num_trash = UnityEngine.Random.Range(0,8);
 
             // Randomly spawn trash in all sections
-            random_num_x = UnityEngine.Random.Range(-3, 3);
-            random_num_y = UnityEngine.Random.Range(-3, 3); // (-2, 3)
+            random_num_x = UnityEngine.Random.Range(-30, 22);
+            random_num_y = UnityEngine.Random.Range(-14, 18); // (-2, 3)
         }
         
         // Calculate trash limit
-        trash_limit = 10 + level;
+        trash_limit = 10 + (level * 5);
 
-        Vector3 random_position = new Vector3 (transform.position.x + random_num_x, transform.position.y + random_num_y, transform.position.z);
+        Vector3 random_position = new Vector3 (transform.position.x + random_num_x + 0.5f, transform.position.y + random_num_y + 0.5f, transform.position.z);
             
         // Randomly rotate trash around z axis
         float random_num_z = UnityEngine.Random.Range(-90f, 90f);
@@ -142,60 +144,61 @@ public class Trash_Spawner : MonoBehaviour, Game_Interface_Data
         Collider2D unspawnable_solid_blocks = Physics2D.OverlapCircle(random_position, .2f, solid_objects);
         Collider2D unspawnable_bin_blocks = Physics2D.OverlapCircle(random_position, .2f, trash_bins);
 
-        if (unspawnable_bin_blocks && unspawnable_solid_blocks) {
+        if (unspawnable_bin_blocks || unspawnable_solid_blocks) {
             test_bool = false;
         }
 
         // If trash position is suitable, spawn it
-        if (!unspawnable_solid_blocks && !unspawnable_bin_blocks) {
+        if (!unspawnable_solid_blocks || !unspawnable_bin_blocks) {
 
             // Check that limit is not reached yet
             if (current_trash_amount < trash_limit) {
                 test_bool = true;
                 // Spawn trash based on number, pos, and rotation
                 if (random_num_trash == 0) {
-                    GameObject trash = GameObject.Instantiate(plastic_trash); 
+                    trash = GameObject.Instantiate(plastic_trash); 
                     trash.transform.position = random_position;
                     trash.transform.rotation = random_rotation;
                 }
 
                 if (random_num_trash == 1) {
-                    GameObject trash = GameObject.Instantiate(paper_trash); 
+                    trash = GameObject.Instantiate(paper_trash); 
                     trash.transform.position = random_position;
                     trash.transform.rotation = random_rotation;
                 }
 
                 if (random_num_trash == 2) {
-                    GameObject trash = GameObject.Instantiate(food_trash);
+                    trash = GameObject.Instantiate(food_trash);
                     trash.transform.position = random_position;
                     trash.transform.rotation = random_rotation;
                 }
 
                 if (random_num_trash == 3) {
-                    GameObject trash = GameObject.Instantiate(glass_trash);
+                    trash = GameObject.Instantiate(glass_trash);
                     trash.transform.position = random_position;
                     trash.transform.rotation = random_rotation;
                 }
                 if (random_num_trash == 4) {
-                    GameObject trash = GameObject.Instantiate(liquld_bottle_trash);
+                    trash = GameObject.Instantiate(liquld_bottle_trash);
                     trash.transform.position = random_position;
                     trash.transform.rotation = random_rotation;
                 }
                 if (random_num_trash == 5) {
-                    GameObject trash = GameObject.Instantiate(strawberry_jam_trash);
+                    trash = GameObject.Instantiate(strawberry_jam_trash);
                     trash.transform.position = random_position;
                     trash.transform.rotation = random_rotation;
                 }
                 if (random_num_trash == 6) {
-                    GameObject trash = GameObject.Instantiate(food_in_box_trash);
+                    trash = GameObject.Instantiate(food_in_box_trash);
                     trash.transform.position = random_position;
                     trash.transform.rotation = random_rotation;
                 }
                 if (random_num_trash == 7) {
-                    GameObject trash = GameObject.Instantiate(Wine_paperbag_trash);
+                    trash = GameObject.Instantiate(Wine_paperbag_trash);
                     trash.transform.position = random_position;
                     trash.transform.rotation = random_rotation;
                 }
+                Debug.Log("New trash: " + trash.tag + "  // at pos: " + trash.transform.position);
                 current_trash_amount ++;
             }
         }       
