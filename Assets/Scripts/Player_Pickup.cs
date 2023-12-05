@@ -2,10 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
+[System.Serializable]
+public class TrashCanData
+{
+    public int correct_trash;
+    public int wrong_trash;
+}
 public class Player_Pickup : MonoBehaviour, Game_Interface_Data
 {
-
     public Transform hold_spot;
     public LayerMask pickup_mask;
     public LayerMask paper_bin_mask;
@@ -17,18 +24,19 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
     public LayerMask solid_mask;
 
     public int points;
-
     // For leaderboard (potentially)
     public int accumulated_points;
-
     public Vector3 direction {get ; set; }
 
     private GameObject held_item;
-    
     public GameObject paper_bin_holder;
     public GameObject plastic_bin_holder;
     public GameObject glass_bin_holder;
     public GameObject food_bin_holder;
+    
+    public int correct_trash;
+    public int wrong_trash;
+    private TrashCanData trashCanData;
 
     public GameObject sink_object;
 
@@ -40,8 +48,10 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
 
     // Update is called once per frame
     void Start() {
-        //points = 0;
-        //accumulated_points = 0;
+        // points = 0;
+        // accumulated_points = 0;
+        trashCanData = new TrashCanData(); // Initialize trashCanData
+        LoadTrashCanData();
     }
 
     void Update()
@@ -58,11 +68,24 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                 // Drop object in front of player and clear parent + item from player
                 // Check if dropping item into trashcan or not
                 if (paper_can || plastic_can || glass_can || food_can) {
-
                     if (paper_can) {
                         if (held_item.tag == "Paper") {
                             points += 10;
                             accumulated_points += 10;
+                            
+                            if (correct_trash==0)
+                            {
+                                SceneManager.LoadScene("paper_d_c");
+                                correct_trash=correct_trash+1;
+                            }
+                        }
+                        else if (held_item.tag == "Plastic" || held_item.tag == "Glass" || held_item.tag == "Food"){
+                            
+                            if (wrong_trash==0)
+                            {
+                                SceneManager.LoadScene("paper_d_w");
+                                wrong_trash=wrong_trash+1;
+                            }
                         }
                         Destroy(held_item);
                         //held_item.transform.parent = paper_bin_holder.transform;
@@ -71,7 +94,22 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                         if (held_item.tag == "Plastic") {
                             points += 10;
                             accumulated_points += 10;
+                            
+                            if (correct_trash==0)
+                            {
+                                SceneManager.LoadScene("plastic_d_c");
+                                correct_trash=correct_trash+1;
+                            }
                         }
+                        else if (held_item.tag == "Glass" || held_item.tag == "Paper" || held_item.tag == "Food"){
+                            
+                            if (wrong_trash==0)
+                            {
+                                SceneManager.LoadScene("plastic_d_w");
+                                wrong_trash=wrong_trash+1;
+                            }
+                        }
+
                         Destroy(held_item);
                         //held_item.transform.parent = plastic_bin_holder.transform;
                     }
@@ -79,6 +117,20 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                         if (held_item.tag == "Glass") {
                             points += 10;
                             accumulated_points += 10;
+                           
+                            if (correct_trash==0)
+                            {
+                                SceneManager.LoadScene("glass_d_c");
+                                correct_trash=correct_trash+1;
+                            }
+                        }
+                        else if (held_item.tag == "Plastic" || held_item.tag == "Paper" || held_item.tag == "Food"){
+                            
+                            if (wrong_trash==0)
+                            {
+                                SceneManager.LoadScene("glass_d_w");
+                                wrong_trash=wrong_trash+1;
+                            }
                         }
                         Destroy(held_item);
                         //held_item.transform.parent = glass_bin_holder.transform;
@@ -87,6 +139,19 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                         if (held_item.tag == "Food") {
                             points += 10;
                             accumulated_points += 10;
+                            
+                            if (correct_trash==0)
+                            {
+                                SceneManager.LoadScene("food_d_c");
+                                correct_trash=correct_trash+1;
+                            }
+                        }
+                        else if (held_item.tag == "Plastic" || held_item.tag == "Paper" || held_item.tag == "Glass"){
+                            if (wrong_trash==0)
+                            {
+                                SceneManager.LoadScene("food_d_w");
+                                wrong_trash=wrong_trash+1;
+                            }
                         }
                         Destroy(held_item);
                         //held_item.transform.parent = food_bin_holder.transform;
@@ -165,7 +230,11 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
                     held_item.transform.position = transform.position + direction;
                     held_item = null;
                 }
+                UpdateTrashCanData();
+                SaveTrashCanData();
+
             }
+
             // If no item currently held, pick up object
             else {
                 Collider2D pick_item = Physics2D.OverlapCircle(transform.position + direction, .4f, pickup_mask);
@@ -197,5 +266,36 @@ public class Player_Pickup : MonoBehaviour, Game_Interface_Data
     public void SaveData(ref Game_Data data){
         data.playerPoints = this.points;
         data.playerTotalPoints = this.accumulated_points;
+    }
+
+    void LoadTrashCanData()
+    {
+        string filePath = "/Users/zac/Documents/GitHub/serious_recycling_game/Assets/Resources/trash_can_counter.json";
+        if (System.IO.File.Exists(filePath))
+    {
+        string jsonData = System.IO.File.ReadAllText(filePath);
+        trashCanData = JsonUtility.FromJson<TrashCanData>(jsonData);
+        // Update your variables with loaded data
+        correct_trash = trashCanData.correct_trash;
+        wrong_trash = trashCanData.wrong_trash;
+    }
+    else
+    {
+        // If the file doesn't exist, create a new instance
+        trashCanData = new TrashCanData();
+    }
+    }
+
+    void UpdateTrashCanData()
+    {
+        trashCanData.correct_trash = correct_trash;
+        trashCanData.wrong_trash = wrong_trash;
+    }
+
+    void SaveTrashCanData()
+    {
+        string filePath = "/Users/zac/Documents/GitHub/serious_recycling_game/Assets/Resources/trash_can_counter.json";
+        string jsonData = JsonUtility.ToJson(trashCanData);
+        System.IO.File.WriteAllText(filePath, jsonData);
     }
 }

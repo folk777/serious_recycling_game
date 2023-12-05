@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [System.Serializable]
-public class Game_Data  
+public class Game_Data
 {
 
  public int playerLevel;
@@ -27,6 +28,8 @@ public class Game_Data
 
  public int currentItemCount;
 
+ //public static string newPlayerName;
+
 
 
 // When game is newly created, this would be the default data for the game
@@ -47,7 +50,8 @@ public class Game_Data
     this.lastSavedTime = new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds();
 
     // Change this to get the player name and input it as so
-    this.playerName = "Player";
- }
+    this.playerName = "";
+     
+    }
 
 }

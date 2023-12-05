@@ -10,6 +10,7 @@ public class Level_Bar_Manager : MonoBehaviour, Game_Interface_Data
     public Image levelbar;
     private int level_progress = 0;
 
+    // public DialogueController DialogueControl;
     private int points;
     private float fill;
     private float level_progress_required = 50f;
@@ -37,6 +38,7 @@ public class Level_Bar_Manager : MonoBehaviour, Game_Interface_Data
     {
         // If player points are updated and level bar is not full, update level bar as well
         if (levelbar.fillAmount != 1.0f) {
+            // DialogueControl.Start();
             level_progress = player.points;
             levelbar.fillAmount = fill + (level_progress / (level_progress_required * level));
         }
