@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Level_Bar_Manager : MonoBehaviour, Game_Interface_Data
 {
-
+    private bool levelUpSceneLoaded = false;
     public Image levelbar;
     private int level_progress = 0;
 
@@ -41,9 +41,10 @@ public class Level_Bar_Manager : MonoBehaviour, Game_Interface_Data
             // DialogueControl.Start();
             level_progress = player.points;
             levelbar.fillAmount = fill + (level_progress / (level_progress_required * level));
-            if (level >= 2 && level <= 4)
+            if (level >= 2 && level <= 4 && !levelUpSceneLoaded)
             {
                 SceneManager.LoadScene("level_up_dialog");
+                levelUpSceneLoaded = true;
             }
         }
 
